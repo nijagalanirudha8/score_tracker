@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cricket Score Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-white">
+<div class="container py-5">
+    <h1 class="text-center mb-4">🏏 Cricket Score Tracker</h1>
+
+    <form method="POST" action="/add" class="row g-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="name" placeholder="Batsman Name" required>
+        </div>
+        <div class="col-md-3">
+            <input type="number" class="form-control" name="runs" placeholder="Runs" min="0" required>
+        </div>
+        <div class="col-md-3">
+            <input type="number" class="form-control" name="balls" placeholder="Balls Faced" min="1" required>
+        </div>
+        <div class="col-md-2 d-grid">
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+    </form>
+
+    <hr class="bg-light">
+
+    {% if batsmen %}
+        <table class="table table-bordered table-dark mt-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Runs</th>
+                    <th>Balls</th>
+                    <th>Strike Rate</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in batsmen %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ b.name }}</td>
+                    <td>{{ b.runs }}</td>
+                    <td>{{ b.balls }}</td>
+                    <td>{{ b.strike_rate }}</td>
+                    <td>
+                        <a href="/remove/{{ loop.index0 }}" class="btn btn-danger btn-sm">Remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/reset" class="btn btn-warning">Reset</a>
+    {% else %}
+        <p class="mt-4 text-center">No batsmen added yet.</p>
+    {% endif %}
+</div>
+</body>
+</html>
